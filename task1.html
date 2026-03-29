@@ -13,18 +13,26 @@
 </head>
 <body>
     <div class ="form">
-    <form>
+    <form onsubmit="return validateLogin()">
         
         <h1 >Login</h1>
         <div class ="input-box">
             
         <label>Username </label><br>
         <i class="fa fa-user"></i>
-        <input type="text" name="name" placeholder="Type your username" ><br>
+        <input type="text" id="username" placeholder="Type your username" ><br>
+
+        <label>Email </label><br>
+        <i class="fa-solid fa-envelope"></i>
+        <input type="email" id="email" placeholder="Type your Email" ><br>
         <label>Password</label><br>
         <i class="fa fa-lock"></i>
-        <input type="password" type="password" placeholder="Type your password">
-        </div>
+        <input type="password" id="password"  placeholder="Type your password">
+       
+
+        <p id ="message" style="color:red;"></p>
+
+         </div>
 
         <div class="forgot">
             <a href="#" target="_blank">Forgot Password?</a>
@@ -65,5 +73,45 @@
         
     </div>
     
+   <script>
+    function validateLogin(){
+        let username=document.getElementById("username").value;
+        let email=document.getElementById("email").value;
+        let password=document.getElementById("password").value;
+        let message=document.getElementById("message");
+        
+         //hardcode Authentication
+         let validuser="admin";
+        let validemail="admin@gmail.com";
+        let validPass="123456";
+
+        //Empty validation
+        if(username===""||email===""||password===""){
+         message.innerText="All fields are required";
+            return false;
+
+        }
+
+        let emailPattern =/^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+        if(!email.match(emailPattern)){
+            message.style.color="red";
+            message.innerText="Enter a valid email";
+            return false;
+        }
+          //login check
+           if(username===validuser&&email===validemail&&password===validPass){
+            message.style.color="green";
+            message.innerText="Login Success";
+
+           }
+           else{
+            message.style.color="red";
+            message.innerText="Invalid Credentials";
+           }
+           return false;
+     
+
+    }
+   </script>
 </body>
 </html>
